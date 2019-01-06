@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "866827891906",
+    "firebase_url": "https://rentals-c7a5d.firebaseio.com",
+    "project_id": "rentals-c7a5d",
+    "storage_bucket": "rentals-c7a5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866827891906:android:f8f69be4ad82ddd2",
+        "android_client_info": {
+          "package_name": "com.iit.rentals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866827891906-uoera453jbrdo09qcosae5g598smrv2b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iit.rentals",
+            "certificate_hash": "72323e6918020b14b21942aa89c49b818ac69950"
+          }
+        },
+        {
+          "client_id": "866827891906-2okpfc10gjvi5c36kmjcu3djogijjg4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqYeiznLbRx6wTMCXN9Ws4nZLE2k8dvqs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866827891906-2okpfc10gjvi5c36kmjcu3djogijjg4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
