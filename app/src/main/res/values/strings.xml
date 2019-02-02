@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Rentals</string>
+
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="your_full_name">Your full name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="avatar_link">avatar_img_link</string>
+    <string name="password_fill">Enter your password</string>
+    <string name="fill_email">Enter your email</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account_yet_create_one">Register your accoun t</string>
+    <string name="or">OR</string>
+    <string name="log_in_with_google">Log In With Google</string>
+    <string name="log_in_with_facebook">Log In With Facebook</string>
+    <string name="enter_full_name_hint">Enter full name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="tab_1">Home</string>
+    <string name="tab_2">Rent</string>
+    <string name="tab_3">Wishlist</string>
+    <string name="sample_title">This is atitle</string>
+    <string name="calling_hotel_detail">hotel_detail</string>
+    <string name="error_general">Error please try agaign</string>
+    <string name="empty_field">Field cannot be empty</string>
+    <string name="calling_category">calling category</string>
 </resources>

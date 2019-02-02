@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.iit.rentals">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Include following permission if you want to cache images on SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -8,14 +17,30 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".rents.FilteredRentActivity"/>
+        <activity android:name=".rents.RentDetailActivity" />
+        <activity android:name=".rents.RentsActivity" />
+        <activity android:name=".hotels.HotelAddActivity" />
+        <activity android:name=".hotels.HotelDetailActivity" />
+        <activity android:name=".startup.WelcomeActivityV2" />
+        <activity android:name=".home.HomeActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".startup.LoginActivity" />
+        <activity android:name=".startup.RegisterActivity" />
+        <activity android:name=".startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".startup.WelcomeScreen" />
+        <activity android:name=".categories.CategoryAddActivity" />
+        <activity android:name=".others.OthersAddActivity" />
+        <activity android:name=".rooms.RoomAddActivity" />
+        <activity android:name=".rooms.RoomDetailActivity" />
     </application>
 
 </manifest>

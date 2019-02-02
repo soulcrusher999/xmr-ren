@@ -47,10 +47,30 @@ dependencies {
 
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation 'com.google.firebase:firebase-database:16.0.5'
+    implementation 'com.github.apl-devs:appintro:v4.2.3'
+    implementation 'com.google.firebase:firebase-database:16.0.6'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
+
+    //for google sign in
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+
+    //bottom navigation view
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+    //startupscreen
+    implementation 'com.github.elevenetc:textsurface:0.9.1'
+
+    //for border on imageview
+    implementation 'com.joooonho:selectableroundedimageview:1.0.1'
+
+    //advanced fab button
+    implementation 'com.github.clans:fab:1.6.4'
+
+    //advanced viewpager
+    implementation 'devlight.io:navigationtabbar:1.2.5'
+
 
 }
 
