@@ -231,7 +231,6 @@ public class RentsActivity extends AppCompatActivity {
                 switch (position) {
                     case Navigation
                             .HOME:
-
                         Intent in = new Intent(mContext, HomeActivity.class);
                         startActivity(in);
                         break;

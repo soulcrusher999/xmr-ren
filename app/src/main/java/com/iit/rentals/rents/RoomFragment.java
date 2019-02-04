@@ -59,6 +59,7 @@ public class RoomFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds :
                                 dataSnapshot.getChildren()) {
+                            mList.clear();
                             Room post= ds.getValue(Room.class);
 
                             mList.add(post);

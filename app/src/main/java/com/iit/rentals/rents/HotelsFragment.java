@@ -58,6 +58,7 @@ public class HotelsFragment extends Fragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mList.clear();
                         for (DataSnapshot ds :
                                 dataSnapshot.getChildren()) {
                              Hotel post= ds.getValue(Hotel.class);

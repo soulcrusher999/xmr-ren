@@ -74,7 +74,7 @@ public class HotelAddActivity extends AppCompatActivity {
     }
 
     private void setupProgressDialog() {
-        dialog = new ProgressDialog(this); // this = YourActivity
+        dialog = new ProgressDialog(mContext); // this = YourActivity
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setTitle("Loading");
         dialog.setMessage("Loading. Please wait...");
@@ -102,10 +102,10 @@ public class HotelAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 s_name = name.getText().toString();
-                s_desc = name.getText().toString();
+                s_desc = desc.getText().toString();
                 s_location = location.getText().toString();
-                s_price = name.getText().toString();
-                s_discoumt = name.getText().toString();
+                s_price = price.getText().toString();
+                s_discoumt = discount.getText().toString();
 
                 if (!validateForm()) {
                     Toast.makeText(mContext, "All fields are not set correctly", Toast.LENGTH_SHORT).show();
@@ -116,13 +116,34 @@ public class HotelAddActivity extends AppCompatActivity {
         });
     }
 
+    private boolean validateForm() {
+        valid = true;
+
+        if (s_name.isEmpty()) {
+            name.setError(mContext.getString(R.string.empty_field));
+            valid = false;
+        }
+        if (s_price.isEmpty()) {
+            price.setError(mContext.getString(R.string.empty_field));
+            valid = false;
+        }
+        if (image_link.isEmpty()) {
+            Toast.makeText(mContext, "Set an image", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+
+
+        return valid;
+    }
+
     private void addHotelToDatabase(Uri downloadUrl) {
-        keyId = mFirebaseHelper.getMyRef().child(FilePaths.HOTEL).push().getKey();
+
 
 //        List<String> stringList = Arrays.asList("asd", "sad");
         List<HotelService> hotelServices = new ArrayList<>();
         hotelServices.add(new HotelService("service1","dsd","sdlfkjsdlkf"));
         hotelServices.add(new HotelService("service2","dsd","sdlfkjsdlkf"));
+
         Hotel post = new Hotel(
                 keyId,
                 s_name,
@@ -132,7 +153,8 @@ public class HotelAddActivity extends AppCompatActivity {
                 FilePaths.HOTEL,
                 s_price,
                 s_discoumt,
-                hotelServices
+                hotelServices,
+                "This is owner rules part"
         );
 
         showProgressDialog();
@@ -157,8 +179,9 @@ public class HotelAddActivity extends AppCompatActivity {
     }
 
     private void savePictureToStorage() {
+        keyId = mFirebaseHelper.getMyRef().child(FilePaths.HOTEL).push().getKey();
         final StorageReference storageReference = mFirebaseHelper.getmStorageReference()
-                .child(FilePaths.HOTEL + "/" + "/hotel" + keyId);
+                .child(FilePaths.HOTEL + "/" + "hotel" + keyId);
         InputStream is = null;
         try {
             is = mContext.getContentResolver().openInputStream(Uri.parse(image_link));
@@ -239,25 +262,6 @@ public class HotelAddActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
-    private boolean validateForm() {
-        valid = true;
-
-        if (s_name.isEmpty()) {
-            name.setError(mContext.getString(R.string.empty_field));
-            valid = false;
-        }
-        if (s_price.isEmpty()) {
-            price.setError(mContext.getString(R.string.empty_field));
-            valid = false;
-        }
-        if (image_link.isEmpty()) {
-            Toast.makeText(mContext, "Set an image", Toast.LENGTH_SHORT).show();
-        }
-
-
-        return valid;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

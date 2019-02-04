@@ -15,6 +15,7 @@ public class Hotel implements Parcelable {
     public String price;
     public String discount;
     public List<HotelService> services;
+    public String ownerRules;
 
     public Hotel() {
     }
@@ -29,6 +30,7 @@ public class Hotel implements Parcelable {
         price = in.readString();
         discount = in.readString();
         services = in.createTypedArrayList(HotelService.CREATOR);
+        ownerRules = in.readString();
     }
 
     public static final Creator<Hotel> CREATOR = new Creator<Hotel>() {
@@ -115,7 +117,16 @@ public class Hotel implements Parcelable {
         this.services = services;
     }
 
-    public Hotel(String id, String name, String desc, String location, String image, String category_name, String price, String discount, List<HotelService> services) {
+    public String getOwnerRules() {
+        return ownerRules;
+    }
+
+    public void setOwnerRules(String ownerRules) {
+        this.ownerRules = ownerRules;
+    }
+
+    public Hotel(String id, String name, String desc, String location,
+                 String image, String category_name, String price, String discount, List<HotelService> services, String ownerRules) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -125,6 +136,7 @@ public class Hotel implements Parcelable {
         this.price = price;
         this.discount = discount;
         this.services = services;
+        this.ownerRules = ownerRules;
     }
 
     @Override
@@ -143,5 +155,6 @@ public class Hotel implements Parcelable {
         parcel.writeString(price);
         parcel.writeString(discount);
         parcel.writeTypedList(services);
+        parcel.writeString(ownerRules);
     }
 }

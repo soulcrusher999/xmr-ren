@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.iit.rentals.R;
 import com.iit.rentals.utils.FirebaseHelper;
+import com.iit.rentals.utils.HelperUtilities;
 import com.iit.rentals.utils.Permissions;
 import com.iit.rentals.utils.TextDataUtils;
 import com.iit.rentals.utils.VerifyPermissions;
@@ -153,6 +154,11 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         } else {
             mEmail.setError(null);
+        }
+
+        if (!HelperUtilities.isValidEmail(email)){
+            mEmail.setError("Not a valid email");
+            valid = false;
         }
 
 
