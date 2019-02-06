@@ -37,7 +37,7 @@
                         android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Hotel name" />
+                        android:hint="Name" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -49,7 +49,7 @@
                         android:id="@+id/desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Hotel Description"
+                        android:hint="Description"
                         android:minLines="4" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -93,20 +93,8 @@
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mar_4">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/discount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Discount"
-                        android:inputType="number"
-                        android:maxLength="99"
-                        android:minLines="3" />
-                </android.support.design.widget.TextInputLayout>
+
 
                 <Button
                     android:id="@+id/btn_save"

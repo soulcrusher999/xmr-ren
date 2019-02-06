@@ -62,7 +62,11 @@ public class HotelsFragment extends Fragment {
                         for (DataSnapshot ds :
                                 dataSnapshot.getChildren()) {
                              Hotel post= ds.getValue(Hotel.class);
-                            mList.add(post);
+
+                             if (post.isBookmarked){
+
+                                 mList.add(post);
+                             }
                         }
                         adapter.notifyDataSetChanged();
                         refresh.setRefreshing(false);

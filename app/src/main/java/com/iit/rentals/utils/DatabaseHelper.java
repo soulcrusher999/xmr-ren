@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.iit.rentals.models.Category;
 import com.iit.rentals.models.User;
 
 import java.util.ArrayList;
@@ -24,76 +25,87 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // User table name
     private static final String TABLE_USER = "user";
-
     // User Table Columns names
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_NAME = "user_name";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COL_USER_IMAGE = "user_password";
-
-
     private static final String COL_USER_TYPE = "type";
     private static final String COL_USER_ID = "user_id";
 
-    //table notes
-//    private String DROP_SYLLABUS_TABLE = "DROP TABLE IF EXISTS " + TABLE_SYLLABUS;
-//    private String CREATE_SYLLABUS_TABLE = String.format("CREATE TABLE %s(%s VARCHAR(255) PRIMARY KEY," +
-//                    "%s VARCHAR(100),%s TEXT,%s TEXT,%s TEXT)"
-//            , TABLE_SYLLABUS,
-//            COL_SYLLABUS_ID,
-//            COL_SYLLABUS_CREATED_DATE,
-//            COL_SYLLABUS_FILE_PATH,
-//            COL_SYLLABUS_SUBJECT_NAME,
-//            COL_SYLLABUS_SEMESTER
-//    );
-
-
-
     // create table user sql query
 
-    private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
-    private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
-            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_NAME + " TEXT,"
-            + COLUMN_USER_EMAIL + " TEXT," + COL_USER_IMAGE + " TEXT" + ")";
+    private String DROP_USER_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_USER);
+    private String CREATE_USER_TABLE = String.format("CREATE TABLE %s(" +
+                    "%s INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "%s TEXT," +
+                    "%s TEXT," +
+                    "%s TEXT)",
+            TABLE_USER,
+            COLUMN_USER_ID,
+            COLUMN_USER_NAME,
+            COLUMN_USER_EMAIL,
+            COL_USER_IMAGE
+    );
 
-    // create table notes sql query
-//    private String CREATE_NOTES_TABLE = "CREATE TABLE " + TABLE_NOTE + "("
-//            + COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_NOTE_TITLE + " TEXT,"
-//            + COLUMN_NOTE_DATE + " TEXT," + COLUMN_NOTE_DESC + " TEXT" + ")";
 
-//    // User table name
-//    private static final String TABLE_USER = "user";
+    // CATEGORY table name
+    private static final String TABLE_CATEGORY = "CATEGORY";
+    // CATEGORY Table Columns names
+    private static final String COLUMN_CATEGORY_ID = "category_id";
+    private static final String COLUMN_CATEGORY_NAME = "name";
+    private static final String COLUMN_CATEGORY_DESC = "description";
+    private static final String COL_CATEGORY_IMAGE = "picture";
+    private static final String COL_CATEGORY_TYPE = "isCategoryPrimary";
+
+
+    // create table CATEGORY sql query
+
+    private String DROP_CATEGORY_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_CATEGORY);
+    private String CREATE_CATEGORY_TABLE = String.format("CREATE TABLE %s(" +
+                    "%s VARCHAR(255) PRIMARY KEY," +
+                    "%s VARCHAR(100)," +
+                    "%s TEXT," +
+                    "%s TEXT," +
+                    "%s INTEGER DEFAULT 0" +
+                    ")",
+            TABLE_CATEGORY,
+            COLUMN_CATEGORY_ID,
+            COLUMN_CATEGORY_NAME,
+            COLUMN_CATEGORY_DESC,
+            COL_CATEGORY_IMAGE,
+            COL_CATEGORY_TYPE
+    );
+
+//    // HOTEL table name
+//    private static final String TABLE_HOTEL = "hotels";
+//    // HOTEL Table Columns names
+//    private static final String COLUMN_HOTEL_ID = "id";
+//    private static final String COLUMN_HOTEL_NAME = "name";
+//    private static final String COLUMN_HOTEL_DESC = "description";
+//    private static final String COL_HOTEL_IMAGE = "location";
+//    private static final String COL_HOTEL_IMAGE = "picture";
+//    private static final String COL_HOTEL_TYPE = "isHOTELPrimary";
 //
-//    // User Table Columns names
-//    private static final String COLUMN_USER_ID = "id";
-//    private static final String COLUMN_USER_NAME = "name";
-//    private static final String COLUMN_USER_EMAIL = "email";
-//    private static final String COL_USER_IMAGE = "password";
-//    private static final String COLUMN_USER_GENDER = "gender";
-//    private static final String COLUMN_USER_BLOODGROUP= "bloodGroup";
-//    private static final String COLUMN_USER_CONTACTNUM= "contactNum";
-//    private static final String COLUMN_USER_ADDRESS= "bloodGroup";
-//    private static final String COLUMN_USER_DOB= "dob";
-//    private static final String COLUMN_USER_LASTDONATION= "bloodGroup";
-//    private static final String COLUMN_USER_ISAVAILABLE= "is";
 //
+//    // create table HOTEL sql query
 //
-//    // create table user sql query
-
-
-//    private String CREATE_USER_TABLE = "CREATE TABLE `users_blood_dlist` (\n" +
-//            "  `id` int(11) PRIMARY KEY AUTOINCREMENT,\n" +
-//            "  `name` varchar(100) NOT NULL,\n" +
-//            "  `email` text NOT NULL,\n" +
-//            "  `password` varchar(100) NOT NULL,\n" +
-//            "  `gender` varchar(10) NOT NULL,\n" +
-//            "  `bloodGroup` varchar(10) NOT NULL,\n" +
-//            "  `contactNum` bigint(100),\n" +
-//            "  `address` text,\n" +
-//            "  `dob` VARCHAR(255) NOT NULL,\n" +
-//            "  `lastDonationDate` VARCHAR(255),\n" +
-//            "  `isAvailable` tinyint(1)\n" +
-//            ") ";
+//    private String DROP_HOTEL_TABLE = String.format("DROP TABLE IF EXISTS %s", TABLE_HOTEL);
+//    private String CREATE_HOTEL_TABLE = String.format("CREATE TABLE %s(" +
+//                    "%s VARCHAR(255) PRIMARY KEY," +
+//                    "%s VARCHAR(100)," +
+//                    "%s TEXT," +
+//                    "%s TEXT," +
+//                    "%s INTEGER DEFAULT 0" +
+//                    ")",
+//            TABLE_HOTEL,
+//            COLUMN_HOTEL_ID,
+//            COLUMN_HOTEL_NAME,
+//            COLUMN_HOTEL_DESC,
+//            COL_HOTEL_IMAGE,
+//            COL_HOTEL_TYPE
+//    );
+//
 
 
     /**
@@ -116,7 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_CATEGORY_TABLE);
     }
 
 
@@ -125,6 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Drop User Table if exist
         db.execSQL(DROP_USER_TABLE);
+        db.execSQL(DROP_CATEGORY_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -354,5 +369,242 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return false;
     }
+
+    /**
+     * This method is to create category record
+     * TABLE_CATEGORY,
+     * COLUMN_CATEGORY_ID,
+     * COLUMN_CATEGORY_NAME,
+     * COLUMN_CATEGORY_DESC,
+     * COL_CATEGORY_IMAGE,
+     * COL_CATEGORY_TYPE
+     *
+     * @param post
+     */
+    public void addCategory(Category post) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CATEGORY_ID, post.getId());
+        values.put(COLUMN_CATEGORY_NAME, post.getName());
+        values.put(COLUMN_CATEGORY_DESC, post.getDescription());
+        values.put(COL_CATEGORY_IMAGE, post.getPicture());
+        values.put(COL_CATEGORY_TYPE, post.isCategoryPrimary());
+
+        // Inserting Row
+        db.insert(TABLE_CATEGORY, null, values);
+        db.close();
+    }
+
+    /**
+     * This method is to fetch all user and return the list of user records
+     * TABLE_CATEGORY,
+     * COLUMN_CATEGORY_ID,
+     * COLUMN_CATEGORY_NAME,
+     * COLUMN_CATEGORY_DESC,
+     * COL_CATEGORY_IMAGE,
+     * COL_CATEGORY_TYPE
+     *
+     * @return list
+     */
+    public List<Category> getAllCategories() {
+        // array of columns to fetch
+        String[] columns = {
+                COL_USER_ID,
+                COLUMN_CATEGORY_ID,
+                COLUMN_CATEGORY_NAME,
+                COLUMN_CATEGORY_DESC,
+                COL_CATEGORY_IMAGE,
+                COL_CATEGORY_TYPE
+        };
+        // sorting orders
+        String sortOrder =
+                COLUMN_CATEGORY_NAME + " ASC";
+        List<Category> mList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_CATEGORY, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Category post = new Category();
+                post.setId(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_ID)));
+                post.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_NAME)));
+                post.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_DESC)));
+                post.setPicture(cursor.getString(cursor.getColumnIndex(COL_CATEGORY_IMAGE)));
+                post.setCategoryPrimary(cursor.getInt(cursor.getColumnIndex(COL_CATEGORY_TYPE)) == 1);
+                // Adding post record to list
+                Log.v("post", mList.toString());
+                mList.add(post);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return mList;
+    }
+
+
+    /**
+     * This method is to delete user record
+     *
+     * @param post
+     */
+    public void deleteCategory(Category post) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // delete user record by id
+        db.delete(TABLE_CATEGORY, COLUMN_CATEGORY_ID + " = ?",
+                new String[]{String.valueOf(post.getId())});
+        db.close();
+    }
+
+    /**
+     * This method to update user record
+     * TABLE_CATEGORY,
+     * COLUMN_CATEGORY_ID,
+     * COLUMN_CATEGORY_NAME,
+     * COLUMN_CATEGORY_DESC,
+     * COL_CATEGORY_IMAGE,
+     * COL_CATEGORY_TYPE
+     *
+     * @param post
+     */
+    public void updateCategory(Category post, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CATEGORY_ID, post.getId());
+        values.put(COLUMN_CATEGORY_NAME, post.getName());
+        values.put(COLUMN_CATEGORY_DESC, post.getDescription());
+        values.put(COL_CATEGORY_IMAGE, post.getPicture());
+        values.put(COL_CATEGORY_TYPE, post.isCategoryPrimary());
+
+
+        // updating row
+        db.update(TABLE_CATEGORY, values, COLUMN_CATEGORY_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+//
+//    /**
+//     * This method is to create category record
+//     * TABLE_CATEGORY,
+//     * COLUMN_CATEGORY_ID,
+//     * COLUMN_CATEGORY_NAME,
+//     * COLUMN_CATEGORY_DESC,
+//     * COL_CATEGORY_IMAGE,
+//     * COL_CATEGORY_TYPE
+//     *
+//     * @param post
+//     */
+//    public void addCategory(Category post) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_CATEGORY_ID, post.getId());
+//        values.put(COLUMN_CATEGORY_NAME, post.getName());
+//        values.put(COLUMN_CATEGORY_DESC, post.getDescription());
+//        values.put(COL_CATEGORY_IMAGE, post.getPicture());
+//        values.put(COL_CATEGORY_TYPE, post.isCategoryPrimary());
+//
+//        // Inserting Row
+//        db.insert(TABLE_CATEGORY, null, values);
+//        db.close();
+//    }
+//
+//    /**
+//     * This method is to fetch all user and return the list of user records
+//     * TABLE_CATEGORY,
+//     * COLUMN_CATEGORY_ID,
+//     * COLUMN_CATEGORY_NAME,
+//     * COLUMN_CATEGORY_DESC,
+//     * COL_CATEGORY_IMAGE,
+//     * COL_CATEGORY_TYPE
+//     *
+//     * @return list
+//     */
+//    public List<Category> getAllCategories() {
+//        // array of columns to fetch
+//        String[] columns = {
+//                COL_USER_ID,
+//                COLUMN_CATEGORY_ID,
+//                COLUMN_CATEGORY_NAME,
+//                COLUMN_CATEGORY_DESC,
+//                COL_CATEGORY_IMAGE,
+//                COL_CATEGORY_TYPE
+//        };
+//        // sorting orders
+//        String sortOrder =
+//                COLUMN_CATEGORY_NAME + " ASC";
+//        List<Category> mList = new ArrayList<>();
+//
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // query the user table
+//        /**
+//         * Here query function is used to fetch records from user table this function works like we use sql query.
+//         * SQL query equivalent to this query function is
+//         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+//         */
+//        Cursor cursor = db.query(TABLE_CATEGORY, //Table to query
+//                columns,    //columns to return
+//                null,        //columns for the WHERE clause
+//                null,        //The values for the WHERE clause
+//                null,       //group the rows
+//                null,       //filter by row groups
+//                sortOrder); //The sort order
+//
+//
+//        // Traversing through all rows and adding to list
+//        if (cursor.moveToFirst()) {
+//            do {
+//                Category post = new Category();
+//                post.setId(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_ID)));
+//                post.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_NAME)));
+//                post.setDescription(cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_DESC)));
+//                post.setPicture(cursor.getString(cursor.getColumnIndex(COL_CATEGORY_IMAGE)));
+//                post.setCategoryPrimary(cursor.getInt(cursor.getColumnIndex(COL_CATEGORY_TYPE)) == 1);
+//                // Adding post record to list
+//                Log.v("post", mList.toString());
+//                mList.add(post);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        db.close();
+//
+//        // return user list
+//        return mList;
+//    }
+//
+//
+//    /**
+//     * This method is to delete user record
+//     *
+//     * @param post
+//     */
+//    public void deleteCategory(Category post) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        // delete user record by id
+//        db.delete(TABLE_CATEGORY, COLUMN_CATEGORY_ID + " = ?",
+//                new String[]{String.valueOf(post.getId())});
+//        db.close();
+//    }
 
 }

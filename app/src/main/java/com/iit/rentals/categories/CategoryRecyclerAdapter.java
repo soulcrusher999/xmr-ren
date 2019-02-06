@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iit.rentals.R;
-import com.iit.rentals.hotels.HotelDetailActivity;
 import com.iit.rentals.models.Category;
+import com.iit.rentals.rents.RentsActivity;
 import com.iit.rentals.utils.UniversalImageLoader;
 
 import java.util.List;
@@ -60,11 +60,16 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Intent intent = new Intent(mContext, HotelDetailActivity.class);
-                        intent.putExtra(mContext.getString(R.string.calling_category),
-                                mList.get(getAdapterPosition()));
 
-                        mContext.startActivity(intent);
+//                        if (mList.get(getAdapterPosition()).getName() == FilePaths.HOTEL) {
+
+                            Intent intent = new Intent(mContext, RentsActivity.class);
+                            intent.putExtra(mContext.getString(R.string.calling_category),
+                                    mList.get(getAdapterPosition()));
+                            mContext.startActivity(intent);
+//                        }
+
+
                     }
                 }
             });

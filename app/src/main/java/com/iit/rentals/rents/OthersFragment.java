@@ -16,8 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.iit.rentals.R;
-import com.iit.rentals.categories.CategoryRecyclerAdapter;
-import com.iit.rentals.models.Category;
+import com.iit.rentals.models.OthersRent;
+import com.iit.rentals.others.OthersRecyclerAdapter;
 import com.iit.rentals.utils.FilePaths;
 import com.iit.rentals.utils.FirebaseHelper;
 
@@ -29,17 +29,17 @@ public class OthersFragment extends Fragment {
     private Context mContext;
     private View view;
 
-    private List<Category> mList;
+    private List<OthersRent> mList;
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
-    private CategoryRecyclerAdapter adapter;
+    private OthersRecyclerAdapter adapter;
     private FirebaseHelper mFirebaseHelper;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_houses, container, false);
+        view = inflater.inflate(R.layout.fragment_others, container, false);
         mContext = getContext();
 
         mFirebaseHelper = new FirebaseHelper(mContext);
@@ -58,11 +58,8 @@ public class OthersFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds :
                                 dataSnapshot.getChildren()) {
-                            Category post = ds.getValue(Category.class);
-
-                            if (!post.isCategoryPrimary()) {
-                                mList.add(post);
-                            }
+                            OthersRent post = ds.getValue(OthersRent.class);
+                            mList.add(post);
 
                         }
                         adapter.notifyDataSetChanged();
@@ -84,7 +81,7 @@ public class OthersFragment extends Fragment {
 
         recyclerView.setLayoutManager(manager);
 
-        adapter = new CategoryRecyclerAdapter(mContext, mList);
+        adapter = new OthersRecyclerAdapter(mContext, mList);
 
         recyclerView.setAdapter(adapter);
     }

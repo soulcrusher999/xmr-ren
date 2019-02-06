@@ -16,6 +16,7 @@ public class Hotel implements Parcelable {
     public String discount;
     public List<HotelService> services;
     public String ownerRules;
+    public boolean isBookmarked;
 
     public Hotel() {
     }

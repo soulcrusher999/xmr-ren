@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.iit.rentals.R;
 import com.iit.rentals.models.Category;
 import com.iit.rentals.models.OthersRent;
-import com.iit.rentals.others.RecyclerAdapter;
+import com.iit.rentals.others.OthersRecyclerAdapter;
 import com.iit.rentals.utils.FilePaths;
 import com.iit.rentals.utils.FirebaseHelper;
 
@@ -55,7 +55,7 @@ public class FilteredRentActivity extends AppCompatActivity {
         loadData();
     }
 
-    private RecyclerAdapter adapter;
+    private OthersRecyclerAdapter adapter;
 
     private List<OthersRent> mList;
     private SwipeRefreshLayout refresh;
@@ -69,7 +69,7 @@ public class FilteredRentActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(manager);
 
-        adapter = new RecyclerAdapter(mContext, mList);
+        adapter = new OthersRecyclerAdapter(mContext, mList);
 
         recyclerView.setAdapter(adapter);
     }

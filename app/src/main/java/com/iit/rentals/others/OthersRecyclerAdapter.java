@@ -17,11 +17,11 @@ import com.iit.rentals.utils.UniversalImageLoader;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class OthersRecyclerAdapter extends RecyclerView.Adapter<OthersRecyclerAdapter.MyViewHolder> {
     private Context mContext;
     private List<OthersRent> mList;
 
-    public RecyclerAdapter(Context context, List<OthersRent> datas) {
+    public OthersRecyclerAdapter(Context context, List<OthersRent> datas) {
         mContext = context;
         mList = datas;
     }
@@ -33,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OthersRecyclerAdapter.MyViewHolder holder, int position) {
 
         OthersRent post = mList.get(position);
         UniversalImageLoader.setImage(post.getImage(), holder.image, null, "");
