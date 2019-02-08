@@ -50,7 +50,7 @@ public class CookieThumperSample {
                 .setPosition(Align.BOTTOM_OF, textDaai).build();
 
         Text textFokkenGamBra = TextBuilder
-                .create(" Restaurants,")
+                .create(" rooms for,")
                 .setPaint(paint)
                 .setSize(24)
                 .setAlpha(0)
@@ -58,7 +58,7 @@ public class CookieThumperSample {
                 .setPosition(Align.BOTTOM_OF, textBraAnies).build();
 
         Text textHaai = TextBuilder
-                .create("Home")
+                .create("Home,")
                 .setPaint(paint)
                 .setSize(34)
                 .setAlpha(0)
@@ -66,7 +66,7 @@ public class CookieThumperSample {
                 .setPosition(Align.RIGHT_OF, textFokkenGamBra).build();
 
         Text textAnd = TextBuilder
-                .create("and")
+                .create("Hotels and")
                 .setPaint(paint)
                 .setSize(34)
                 .setAlpha(0)

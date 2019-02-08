@@ -18,6 +18,7 @@ public class SharedPreferenceHelper {
     private static String SHARE_KEY_EMAIL = "email";
     private static String SHARE_KEY_AVATA = "avata";
     private static String SHARE_KEY_UID = "uid";
+    private static final String SHARE_KEY_CONTACT = "contact";
 
 
     public static final String ISFIRSTLAUNCH = "launchType";
@@ -59,9 +60,10 @@ public class SharedPreferenceHelper {
         String avatar = preferences.getString(SHARE_KEY_AVATA, "default");
         String email = preferences.getString(SHARE_KEY_EMAIL, "");
         long userType = preferences.getLong(SHARE_KEY_USERTYPE, UserTypes.NORMAL);
+        String contact = preferences.getString(SHARE_KEY_CONTACT, "");
 
 
-        return new User(user_id, userName, avatar, userType, email);
+        return new User(user_id, userName, avatar, userType, email,contact);
     }
 
     public String getUID() {

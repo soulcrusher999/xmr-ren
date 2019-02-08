@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,7 @@ import com.iit.rentals.utils.FirebaseHelper;
 import com.iit.rentals.utils.ImageManager;
 import com.iit.rentals.utils.Permissions;
 import com.iit.rentals.utils.SharedPreferenceHelper;
+import com.iit.rentals.utils.UniversalImageLoader;
 import com.iit.rentals.utils.VerifyPermissions;
 
 import java.io.FileNotFoundException;
@@ -47,11 +49,11 @@ public class HotelAddActivity extends AppCompatActivity {
     private static final int VERIFY_PERMISSION_REQUEST = 100;
     private Context mContext = HotelAddActivity.this;
 
-    private TextInputEditText name, desc, price, discount, location;
+    private TextInputEditText name, desc, price, discount, location , contact_no , owner_name;
     private ImageView image;
     private Button btn_save;
 
-    private String s_name, s_desc, s_price, s_discoumt, s_location, image_link;
+    private String s_name, s_desc, s_price, s_discount, s_location, image_link , s_contact_no , s_owner_name;
     private boolean valid;
 
     private FirebaseHelper mFirebaseHelper;
@@ -65,12 +67,29 @@ public class HotelAddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_add);
 
         mFirebaseHelper = new FirebaseHelper(mContext);
+        ImageView main_image = findViewById(R.id.main_image);
+        UniversalImageLoader.setImage(FilePaths.IMAGE_URI, main_image, null, "");
 
+        setupToolbar();
         setupWidgets();
 
         setupProgressDialog();
 
         initData();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Register Hotel");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setupProgressDialog() {
@@ -105,11 +124,14 @@ public class HotelAddActivity extends AppCompatActivity {
                 s_desc = desc.getText().toString();
                 s_location = location.getText().toString();
                 s_price = price.getText().toString();
-                s_discoumt = discount.getText().toString();
+                s_discount = discount.getText().toString();
+                s_contact_no = contact_no.getText().toString();
+                s_owner_name = owner_name.getText().toString();
 
                 if (!validateForm()) {
                     Toast.makeText(mContext, "All fields are not set correctly", Toast.LENGTH_SHORT).show();
                 } else {
+
                     savePictureToStorage();
                 }
             }
@@ -138,12 +160,14 @@ public class HotelAddActivity extends AppCompatActivity {
 
     private void addHotelToDatabase(Uri downloadUrl) {
 
-
+        showProgressDialog();
 //        List<String> stringList = Arrays.asList("asd", "sad");
         List<HotelService> hotelServices = new ArrayList<>();
         hotelServices.add(new HotelService("service1","dsd","sdlfkjsdlkf"));
         hotelServices.add(new HotelService("service2","dsd","sdlfkjsdlkf"));
 
+//        Room post = new Room();
+       // post.setCategory_name();
         Hotel post = new Hotel(
                 keyId,
                 s_name,
@@ -152,12 +176,13 @@ public class HotelAddActivity extends AppCompatActivity {
                 downloadUrl.toString(),
                 FilePaths.HOTEL,
                 s_price,
-                s_discoumt,
-                hotelServices,
+                s_discount,
+                s_contact_no,
+                s_owner_name,
                 "This is owner rules part"
         );
 
-        showProgressDialog();
+
         assert keyId != null;
         mFirebaseHelper.getMyRef().child(FilePaths.HOTEL)
                 .child(keyId)
@@ -271,14 +296,16 @@ public class HotelAddActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             Uri targetUri = data.getData();
             image_link = targetUri.toString();
-            Bitmap bitmap;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                image.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+
+            UniversalImageLoader.setImage(image_link, image, null, "");
+//            Bitmap bitmap;
+//            try {
+//                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+//                image.setImageBitmap(bitmap);
+//            } catch (FileNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -289,6 +316,9 @@ public class HotelAddActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         price = findViewById(R.id.price);
         discount = findViewById(R.id.discount);
+        contact_no = findViewById(R.id.contact_no);
+        owner_name = findViewById(R.id.owner_name);
         btn_save = findViewById(R.id.btn_save);
+
     }
 }

@@ -9,10 +9,10 @@ public class User implements Parcelable{
     public String avatar_img_link;
     public long user_type;
     public String email;
+    public String contact;
 
     public User() {
     }
-
 
     protected User(Parcel in) {
         user_id = in.readString();
@@ -20,6 +20,7 @@ public class User implements Parcelable{
         avatar_img_link = in.readString();
         user_type = in.readLong();
         email = in.readString();
+        contact = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -74,13 +75,21 @@ public class User implements Parcelable{
         this.email = email;
     }
 
-    public User(String user_id, String username, String avatar_img_link, long user_type, String email) {
+    public String getContact() {
+        return contact;
+    }
 
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public User(String user_id, String username, String avatar_img_link, long user_type, String email, String contact) {
         this.user_id = user_id;
         this.username = username;
         this.avatar_img_link = avatar_img_link;
         this.user_type = user_type;
         this.email = email;
+        this.contact = contact;
     }
 
     @Override
@@ -95,5 +104,6 @@ public class User implements Parcelable{
         parcel.writeString(avatar_img_link);
         parcel.writeLong(user_type);
         parcel.writeString(email);
+        parcel.writeString(contact);
     }
 }

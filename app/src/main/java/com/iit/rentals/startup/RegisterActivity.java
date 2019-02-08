@@ -32,8 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
     private static final int VERIFY_PERMISSION_REQUEST = 1;
     public Context mContext;
 
-    private String username, email, password;
-    private EditText mEmail, mName, mPassword;
+    private String username, email, password, contact;
+    private EditText mEmail, mName, mPassword, input_contact;
     private ProgressBar mProgressBar;
 
     private CircleImageView avatar_img;
@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseHelper mFirebaseHelper;
     private String avatar_img_link = "";
     private View view;
+
 
 
     @Override
@@ -84,11 +85,12 @@ public class RegisterActivity extends AppCompatActivity {
                 email = mEmail.getText().toString();
                 password = mPassword.getText().toString();
                 username = mName.getText().toString();
+                contact = input_contact.getText().toString();
 
                 if (validateForm()) {
 //                    progressBarHandler.showProgressBar();
                     showProgressBar();
-                    mFirebaseHelper.registerNewEmail(email, password, username, avatar_img_link);
+                    mFirebaseHelper.registerNewEmail(email, password, username, avatar_img_link,contact);
 
 
                 } else {
@@ -152,8 +154,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextDataUtils.isEmpty(email)) {
             mEmail.setError("Required.");
             valid = false;
-        } else {
-            mEmail.setError(null);
+        }
+        if (TextDataUtils.isEmpty(contact)) {
+            input_contact.setError("Required.");
+            valid = false;
         }
 
         if (!HelperUtilities.isValidEmail(email)){
@@ -165,15 +169,11 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextDataUtils.isEmpty(username)) {
             mName.setError("Required.");
             valid = false;
-        } else {
-            mName.setError(null);
         }
 
         if (!TextDataUtils.isValidPassword(password)) {
             mPassword.setError("Password should be more than 6 characters.");
             valid = false;
-        } else {
-            mPassword.setError(null);
         }
 
         return valid;
@@ -186,6 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         avatar_img = findViewById(R.id.profileImage);
         mEmail = findViewById(R.id.input_email);
+        input_contact = findViewById(R.id.input_contact);
         mName = findViewById(R.id.input_name);
         mPassword = findViewById(R.id.input_password);
 

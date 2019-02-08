@@ -3,8 +3,6 @@ package com.iit.rentals.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 public class Hotel implements Parcelable {
     public String id;
     public String name;
@@ -14,11 +12,25 @@ public class Hotel implements Parcelable {
     public String category_name;
     public String price;
     public String discount;
-    public List<HotelService> services;
+    public String contact_no;
+    public String owner_name;
     public String ownerRules;
-    public boolean isBookmarked;
 
     public Hotel() {
+    }
+
+    public Hotel(String id, String name, String desc, String location, String image, String category_name, String price, String discount, String contact_no, String owner_name, String ownerRules) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.location = location;
+        this.image = image;
+        this.category_name = category_name;
+        this.price = price;
+        this.discount = discount;
+        this.contact_no = contact_no;
+        this.owner_name = owner_name;
+        this.ownerRules = ownerRules;
     }
 
     protected Hotel(Parcel in) {
@@ -30,7 +42,8 @@ public class Hotel implements Parcelable {
         category_name = in.readString();
         price = in.readString();
         discount = in.readString();
-        services = in.createTypedArrayList(HotelService.CREATOR);
+        contact_no = in.readString();
+        owner_name = in.readString();
         ownerRules = in.readString();
     }
 
@@ -110,12 +123,20 @@ public class Hotel implements Parcelable {
         this.discount = discount;
     }
 
-    public List<HotelService> getServices() {
-        return services;
+    public String getContact_no() {
+        return contact_no;
     }
 
-    public void setServices(List<HotelService> services) {
-        this.services = services;
+    public void setContact_no(String contact_no) {
+        this.contact_no = contact_no;
+    }
+
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
     }
 
     public String getOwnerRules() {
@@ -126,36 +147,23 @@ public class Hotel implements Parcelable {
         this.ownerRules = ownerRules;
     }
 
-    public Hotel(String id, String name, String desc, String location,
-                 String image, String category_name, String price, String discount, List<HotelService> services, String ownerRules) {
-        this.id = id;
-        this.name = name;
-        this.desc = desc;
-        this.location = location;
-        this.image = image;
-        this.category_name = category_name;
-        this.price = price;
-        this.discount = discount;
-        this.services = services;
-        this.ownerRules = ownerRules;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(name);
-        parcel.writeString(desc);
-        parcel.writeString(location);
-        parcel.writeString(image);
-        parcel.writeString(category_name);
-        parcel.writeString(price);
-        parcel.writeString(discount);
-        parcel.writeTypedList(services);
-        parcel.writeString(ownerRules);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(location);
+        dest.writeString(image);
+        dest.writeString(category_name);
+        dest.writeString(price);
+        dest.writeString(discount);
+        dest.writeString(contact_no);
+        dest.writeString(owner_name);
+        dest.writeString(ownerRules);
     }
 }

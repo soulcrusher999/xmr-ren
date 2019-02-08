@@ -10,10 +10,25 @@ public class OthersRent implements Parcelable {
     public String location;
     public String image;
     public String category_name;
-    public String contactNo;
-    public String ownerName;
+    public long contact_no;
     public String price;
+    public String owner_name;
     public String ownerRules;
+
+    public OthersRent() {
+    }
+
+    public OthersRent(String name, String desc, String location, String image, String category_name, long contact_no, String price, String owner_name, String ownerRules) {
+        this.name = name;
+        this.desc = desc;
+        this.location = location;
+        this.image = image;
+        this.category_name = category_name;
+        this.contact_no = contact_no;
+        this.price = price;
+        this.owner_name = owner_name;
+        this.ownerRules = ownerRules;
+    }
 
     protected OthersRent(Parcel in) {
         id = in.readString();
@@ -22,9 +37,9 @@ public class OthersRent implements Parcelable {
         location = in.readString();
         image = in.readString();
         category_name = in.readString();
-        contactNo = in.readString();
-        ownerName = in.readString();
+        contact_no = in.readLong();
         price = in.readString();
+        owner_name = in.readString();
         ownerRules = in.readString();
     }
 
@@ -88,20 +103,12 @@ public class OthersRent implements Parcelable {
         this.category_name = category_name;
     }
 
-    public String getContactNo() {
-        return contactNo;
+    public long getContact_no() {
+        return contact_no;
     }
 
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setContact_no(long contact_no) {
+        this.contact_no = contact_no;
     }
 
     public String getPrice() {
@@ -112,27 +119,19 @@ public class OthersRent implements Parcelable {
         this.price = price;
     }
 
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
+    }
+
     public String getOwnerRules() {
         return ownerRules;
     }
 
     public void setOwnerRules(String ownerRules) {
-        this.ownerRules = ownerRules;
-    }
-
-    public OthersRent() {
-    }
-
-    public OthersRent(String id, String name, String desc, String location, String image, String category_name, String contactNo, String ownerName, String price, String ownerRules) {
-        this.id = id;
-        this.name = name;
-        this.desc = desc;
-        this.location = location;
-        this.image = image;
-        this.category_name = category_name;
-        this.contactNo = contactNo;
-        this.ownerName = ownerName;
-        this.price = price;
         this.ownerRules = ownerRules;
     }
 
@@ -149,9 +148,9 @@ public class OthersRent implements Parcelable {
         parcel.writeString(location);
         parcel.writeString(image);
         parcel.writeString(category_name);
-        parcel.writeString(contactNo);
-        parcel.writeString(ownerName);
+        parcel.writeLong(contact_no);
         parcel.writeString(price);
+        parcel.writeString(owner_name);
         parcel.writeString(ownerRules);
     }
 }

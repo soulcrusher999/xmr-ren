@@ -3,8 +3,6 @@ package com.iit.rentals.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 public class Room implements Parcelable {
     public String id;
     public String name;
@@ -12,11 +10,15 @@ public class Room implements Parcelable {
     public String location;
     public String image;
     public String category_name;
-    public List<String> room_images;
+    public long contact_no;
     public String price;
+    public String owner_name;
     public int no_of_rooms;
     public boolean isFullFlat;
     public String ownerRules;
+
+    public Room() {
+    }
 
     protected Room(Parcel in) {
         id = in.readString();
@@ -25,8 +27,9 @@ public class Room implements Parcelable {
         location = in.readString();
         image = in.readString();
         category_name = in.readString();
-        room_images = in.createStringArrayList();
+        contact_no = in.readLong();
         price = in.readString();
+        owner_name = in.readString();
         no_of_rooms = in.readInt();
         isFullFlat = in.readByte() != 0;
         ownerRules = in.readString();
@@ -92,12 +95,12 @@ public class Room implements Parcelable {
         this.category_name = category_name;
     }
 
-    public List<String> getRoom_images() {
-        return room_images;
+    public long getContact_no() {
+        return contact_no;
     }
 
-    public void setRoom_images(List<String> room_images) {
-        this.room_images = room_images;
+    public void setContact_no(long contact_no) {
+        this.contact_no = contact_no;
     }
 
     public String getPrice() {
@@ -106,6 +109,14 @@ public class Room implements Parcelable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getOwner_name() {
+        return owner_name;
+    }
+
+    public void setOwner_name(String owner_name) {
+        this.owner_name = owner_name;
     }
 
     public int getNo_of_rooms() {
@@ -132,25 +143,20 @@ public class Room implements Parcelable {
         this.ownerRules = ownerRules;
     }
 
-    public Room() {
-    }
-
-    public Room(String id, String name, String desc, String location, String image, String category_name,
-                List<String> room_images, String price,
-                int no_of_rooms, boolean isFullFlat, String ownerRules) {
+    public Room(String id, String name, String desc, String location, String image, String category_name, long contact_no, String price, String owner_name, int no_of_rooms, boolean isFullFlat, String ownerRules) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.location = location;
         this.image = image;
         this.category_name = category_name;
-        this.room_images = room_images;
+        this.contact_no = contact_no;
         this.price = price;
+        this.owner_name = owner_name;
         this.no_of_rooms = no_of_rooms;
         this.isFullFlat = isFullFlat;
         this.ownerRules = ownerRules;
     }
-
 
     @Override
     public int describeContents() {
@@ -158,17 +164,18 @@ public class Room implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(name);
-        parcel.writeString(desc);
-        parcel.writeString(location);
-        parcel.writeString(image);
-        parcel.writeString(category_name);
-        parcel.writeStringList(room_images);
-        parcel.writeString(price);
-        parcel.writeInt(no_of_rooms);
-        parcel.writeByte((byte) (isFullFlat ? 1 : 0));
-        parcel.writeString(ownerRules);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(location);
+        dest.writeString(image);
+        dest.writeString(category_name);
+        dest.writeLong(contact_no);
+        dest.writeString(price);
+        dest.writeString(owner_name);
+        dest.writeInt(no_of_rooms);
+        dest.writeByte((byte) (isFullFlat ? 1 : 0));
+        dest.writeString(ownerRules);
     }
 }

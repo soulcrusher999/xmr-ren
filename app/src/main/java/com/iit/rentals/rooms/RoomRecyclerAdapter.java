@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iit.rentals.R;
-import com.iit.rentals.hotels.HotelDetailActivity;
 import com.iit.rentals.models.Room;
 import com.iit.rentals.utils.UniversalImageLoader;
 
@@ -29,7 +28,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MyViewHolder(LayoutInflater.from(
-                mContext).inflate(R.layout.snippet_layout_room, parent, false));
+                mContext).inflate(R.layout.snippet_layout_hotel_vert, parent, false));
     }
 
     @Override
@@ -59,8 +58,8 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Intent intent = new Intent(mContext, HotelDetailActivity.class);
-                        intent.putExtra(mContext.getString(R.string.calling_hotel_detail),
+                        Intent intent = new Intent(mContext, RoomDetailActivity.class);
+                        intent.putExtra(mContext.getString(R.string.calling_room_detail),
                                 mList.get(getAdapterPosition()));
 
                         mContext.startActivity(intent);

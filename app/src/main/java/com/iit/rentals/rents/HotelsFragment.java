@@ -54,6 +54,7 @@ public class HotelsFragment extends Fragment {
 
     private void loadData() {
         refresh.setRefreshing(true);
+
         mFirebaseHelper.getMyRef().child(FilePaths.HOTEL)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -63,10 +64,7 @@ public class HotelsFragment extends Fragment {
                                 dataSnapshot.getChildren()) {
                              Hotel post= ds.getValue(Hotel.class);
 
-                             if (post.isBookmarked){
-
                                  mList.add(post);
-                             }
                         }
                         adapter.notifyDataSetChanged();
                         refresh.setRefreshing(false);

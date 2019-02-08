@@ -26,7 +26,8 @@
         <activity android:name=".hotels.HotelDetailActivity" />
         <activity android:name=".startup.WelcomeActivityV2" />
         <activity android:name=".home.HomeActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".others.DetailActivity" />
+
         <activity android:name=".startup.LoginActivity" />
         <activity android:name=".startup.RegisterActivity" />
         <activity android:name=".startup.SplashActivity">
@@ -41,6 +42,8 @@
         <activity android:name=".others.OthersAddActivity" />
         <activity android:name=".rooms.RoomAddActivity" />
         <activity android:name=".rooms.RoomDetailActivity" />
+        <activity android:name=".bookmarks.BookmarkActivity" />
+        <activity android:name=".hotelBookings.HotelsBookingActivity" />
     </application>
 
 </manifest>

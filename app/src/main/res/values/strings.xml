@@ -23,4 +23,6 @@
     <string name="error_general">Error please try agaign</string>
     <string name="empty_field">Field cannot be empty</string>
     <string name="calling_category">calling category</string>
+    <string name="calling_room_detail">Calling Room</string>
+    <string name="calling_others_detail">calling others</string>
 </resources>

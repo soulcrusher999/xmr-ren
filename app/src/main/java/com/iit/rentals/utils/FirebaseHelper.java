@@ -25,7 +25,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.iit.rentals.MainActivity;
 import com.iit.rentals.R;
 import com.iit.rentals.home.HomeActivity;
 import com.iit.rentals.models.User;
@@ -98,7 +97,7 @@ public class FirebaseHelper {
     public void signOut() {
         mAuth.signOut();
 
-        sharedPreference.saveUserInfo(new User("", "", "", UserTypes.NORMAL, ""));
+        sharedPreference.saveUserInfo(new User("", "", "", UserTypes.NORMAL, "",""));
         Intent intent = new Intent(mContext, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -174,12 +173,12 @@ public class FirebaseHelper {
 
     /**
      * Register a new email and password to Firebase Authentication
-     *
-     * @param email
+     *  @param email
      * @param password
+     * @param contact
      */
     public void registerNewEmail(final String email, String password, final String username,
-                                 final String avatar_img) {
+                                 final String avatar_img, final String contact) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -203,7 +202,8 @@ public class FirebaseHelper {
                                     username,
                                     avatar_img,
                                     UserTypes.NORMAL,
-                                    email
+                                    email,
+                                    contact
                             );
                             getInstance(mContext).saveUserInfo(user);
 
@@ -221,71 +221,84 @@ public class FirebaseHelper {
                 .child(mAuth.getCurrentUser().getUid())
                 .setValue(user);
 
-        FilePaths filePaths = new FilePaths();
-        final StorageReference storageReference = mStorageReference
-                .child("users" + "/" + SharedPreferenceHelper.getInstance(mContext).getUID() + "/avatar");
-        InputStream is = null;
-        try {
-            is = mContext.getContentResolver().openInputStream(Uri.parse(user.getAvatar_img_link()));
+        if (user.getAvatar_img_link().isEmpty()){
 
-            Bitmap bitmap = BitmapFactory.decodeStream(is);
-            byte[] data = ImageManager.getBytesFromBitmap(bitmap, 100);
-            UploadTask uploadTask = storageReference.putBytes(data);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(mContext, "Image upload failed", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                    if (progress - 30 > mPhotoUploadProgress) {
-                        Toast.makeText(mContext, "Photo upload progress: " + String.format("%.0f", progress), Toast.LENGTH_SHORT).show();
-                    }
-                    Log.d(TAG, "onProgress: progress: " + String.format("%.0f", progress) + " % done!");
-
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                    // ...
-                    Task<Uri> firebaseUrl = storageReference.getDownloadUrl();
-                    while (!firebaseUrl.isSuccessful()) ;
-
-                    Uri downloadUrl = firebaseUrl.getResult();
-
-                    SharedPreferenceHelper sharedPreferenceHelper = getInstance(mContext);
-                    sharedPreferenceHelper.setAvatar(downloadUrl.toString());
-                    Toast.makeText(mContext, "Upload success", Toast.LENGTH_SHORT).show();
-                    myRef.child("users").child(mAuth.getCurrentUser().getUid())
-                            .child(mContext.getString(R.string.avatar_link))
-                            .setValue(downloadUrl.toString());
-
-
-                    Intent in = new Intent(mContext, MainActivity.class);
-                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    ((RegisterActivity) mContext).finish();
-                    mContext.startActivity(in);
-
-                }
-            });
-        } catch (FileNotFoundException e) {
-            //            e.printStackTrace();
-            Toast.makeText(mContext, "File not found.", Toast.LENGTH_SHORT).show();
-        } finally {
-
+            Intent in = new Intent(mContext, HomeActivity.class);
+            in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            ((RegisterActivity) mContext).finish();
+            mContext.startActivity(in);
+        }else {
+            FilePaths filePaths = new FilePaths();
+            final StorageReference storageReference = mStorageReference
+                    .child("users" + "/" + SharedPreferenceHelper.getInstance(mContext).getUID() + "/avatar");
+            InputStream is = null;
             try {
-                assert is != null;
-                is.close();
-            } catch (IOException e) {
-                //                e.printStackTrace();
-                Toast.makeText(mContext, "Exception while closing file", Toast.LENGTH_SHORT).show();
+                is = mContext.getContentResolver().openInputStream(Uri.parse(user.getAvatar_img_link()));
+
+                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                byte[] data = ImageManager.getBytesFromBitmap(bitmap, 100);
+                UploadTask uploadTask = storageReference.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        Toast.makeText(mContext, "Image upload failed", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+
+                        if (progress - 30 > mPhotoUploadProgress) {
+                            Toast.makeText(mContext, "Photo upload progress: " + String.format("%.0f", progress), Toast.LENGTH_SHORT).show();
+                        }
+                        Log.d(TAG, "onProgress: progress: " + String.format("%.0f", progress) + " % done!");
+
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                        Task<Uri> firebaseUrl = storageReference.getDownloadUrl();
+                        while (!firebaseUrl.isSuccessful()) ;
+
+                        Uri downloadUrl = firebaseUrl.getResult();
+
+                        SharedPreferenceHelper sharedPreferenceHelper = getInstance(mContext);
+                        sharedPreferenceHelper.setAvatar(downloadUrl.toString());
+                        Toast.makeText(mContext, "Upload success", Toast.LENGTH_SHORT).show();
+                        myRef.child("users").child(mAuth.getCurrentUser().getUid())
+                                .child(mContext.getString(R.string.avatar_link))
+                                .setValue(downloadUrl.toString());
+
+
+                        Intent in = new Intent(mContext, HomeActivity.class);
+                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        ((RegisterActivity) mContext).finish();
+                        mContext.startActivity(in);
+
+                    }
+                });
+            } catch (FileNotFoundException e) {
+                //            e.printStackTrace();
+                Toast.makeText(mContext, "File not found.", Toast.LENGTH_SHORT).show();
+            } finally {
+
+                try {
+                    assert is != null;
+                    is.close();
+                } catch (IOException e) {
+                    //                e.printStackTrace();
+                    Toast.makeText(mContext, "Exception while closing file", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
+
+    }
+
+    public String getUser_id() {
+        return user_id;
     }
 }

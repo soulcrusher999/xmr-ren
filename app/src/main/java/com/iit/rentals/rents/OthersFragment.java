@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class OthersFragment extends Fragment {
     private LinearLayoutManager manager;
     private OthersRecyclerAdapter adapter;
     private FirebaseHelper mFirebaseHelper;
+    private SwipeRefreshLayout refresh;
 
 
     @Nullable
@@ -52,10 +54,12 @@ public class OthersFragment extends Fragment {
     }
 
     private void loadHousesData() {
-        mFirebaseHelper.getMyRef().child(FilePaths.CATEGORY)
+        refresh.setRefreshing(true);
+        mFirebaseHelper.getMyRef().child(FilePaths.OTHERS)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mList.clear();
                         for (DataSnapshot ds :
                                 dataSnapshot.getChildren()) {
                             OthersRent post = ds.getValue(OthersRent.class);
@@ -63,11 +67,13 @@ public class OthersFragment extends Fragment {
 
                         }
                         adapter.notifyDataSetChanged();
+                        refresh.setRefreshing(false);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         Toast.makeText(mContext, mContext.getString(R.string.error_general), Toast.LENGTH_SHORT).show();
+                        refresh.setRefreshing(false);
                     }
                 });
     }
@@ -75,6 +81,7 @@ public class OthersFragment extends Fragment {
     private void setupAdapter() {
 
         mList = new ArrayList<>();
+        refresh = view.findViewById(R.id.refresh);
         recyclerView = view.findViewById(R.id.recyclerView);
 
         manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -84,5 +91,12 @@ public class OthersFragment extends Fragment {
         adapter = new OthersRecyclerAdapter(mContext, mList);
 
         recyclerView.setAdapter(adapter);
+
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadHousesData();
+            }
+        });
     }
 }

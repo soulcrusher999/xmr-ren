@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.iit.rentals.R;
 import com.iit.rentals.home.HomeActivity;
 import com.iit.rentals.utils.SharedPreferenceHelper;
@@ -24,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         sharedPreferenceHelper = SharedPreferenceHelper.getInstance(mContext);
         loadScreen();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         initImageLoader();
     }

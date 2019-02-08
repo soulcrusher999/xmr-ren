@@ -9,14 +9,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.iit.rentals.R;
+import com.iit.rentals.bookmarks.BookmarkActivity;
 import com.iit.rentals.categories.CategoryAddActivity;
 import com.iit.rentals.home.HomeActivity;
 import com.iit.rentals.hotels.HotelAddActivity;
@@ -35,6 +36,8 @@ public class RentsActivity extends AppCompatActivity {
     private SharedPreferenceHelper sharedPreferenceHelper;
     private Context mContext = RentsActivity.this;
 
+    private int position = 0;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +45,20 @@ public class RentsActivity extends AppCompatActivity {
 
         sharedPreferenceHelper = SharedPreferenceHelper.getInstance(mContext);
 
+        checkIncomingIntent();
 
         setupToolbar();
         initUI();
         setupBottomNavigation();
 
         checkIfAdmin();
+    }
+
+    private void checkIncomingIntent() {
+        Intent in = getIntent();
+        if (in.hasExtra(mContext.getString(R.string.calling_category))){
+            position = in.getIntExtra(mContext.getString(R.string.calling_category),0);
+        }
     }
 
     private void checkIfAdmin() {
@@ -98,16 +109,17 @@ public class RentsActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Find Rents");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        TextView toolbar = findViewById(R.id.toolbar);
+        toolbar.setText("Find Rents");
+//        setSupportActionBar(toolbar);
+////        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Find Rents");
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
 
     }
 
@@ -129,14 +141,14 @@ public class RentsActivity extends AppCompatActivity {
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_rent_restaurant),
                         Color.parseColor(colors[0]))
-                        .title("Restaurants")
+                        .title("Hotels")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_rent_home),
                         Color.parseColor(colors[1]))
-                        .title("Houses")
+                        .title("Rooms")
                         .build()
         );
         models.add(
@@ -149,7 +161,7 @@ public class RentsActivity extends AppCompatActivity {
 
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(viewPager, 0);
+        navigationTabBar.setViewPager(viewPager, position);
 
         //IMPORTANT: ENABLE SCROLL BEHAVIOUR IN COORDINATOR LAYOUT
         navigationTabBar.setBehaviorEnabled(true);
@@ -194,7 +206,12 @@ public class RentsActivity extends AppCompatActivity {
 // Create items
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_home, R.color.black);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_home, R.color.black);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home, R.color.black);
+        AHBottomNavigationItem item3;
+        if (SharedPreferenceHelper.getInstance(mContext).getUserInfo().getUser_type() == UserTypes.ADMIN){
+            item3 = new AHBottomNavigationItem("Hotel Bookings", R.drawable.ic_home, R.color.black);
+        }else {
+            item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home, R.color.black);
+        }
 
 // Add items
         bottomNavigation.addItem(item1);
@@ -239,7 +256,7 @@ public class RentsActivity extends AppCompatActivity {
                         startActivity(in1);
                         break;
                     case Navigation.WISHLIST:
-                        Intent in2 = new Intent(mContext, HomeActivity.class);
+                        Intent in2 = new Intent(mContext, BookmarkActivity.class);
                         startActivity(in2);
                         break;
 

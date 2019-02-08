@@ -1,117 +1,151 @@
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_marginBottom="56dp"
-        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/appbar_header_height">
-            <ImageView
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="@color/black"
-                android:layout_height="match_parent" />
+                android:layout_height="@dimen/appbar_header_height">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:src="@color/white"
-                android:layout_marginBottom="@dimen/margin_12"
-                />
-        </RelativeLayout>
-
-        <android.support.v7.widget.CardView
-            android:layout_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="@dimen/pad_8"
-                    android:layout_margin="4dp"
-                    android:text="Categories"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/categoryRecyclerView"
+                <ImageView
+                    android:id="@+id/main_image"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="@dimen/pad_8"
-                    android:layout_margin="4dp"
-                    android:text="Hotels"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/hotelsRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/margin_12"
+                    android:text="@string/app_name"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp" />
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/log_out"
+                    android:padding="8dp"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_logout" />
+            </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="@dimen/pad_8"
-                    android:layout_margin="4dp"
-                    android:text="Home"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/homeRecyclerView"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:padding="@dimen/pad_8"
+                        android:text="Categories"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
-        </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/categoryRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:padding="@dimen/pad_8"
+                        android:text="Hotels"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/hotelsRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:padding="@dimen/pad_8"
+                        android:text="Rooms"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/roomRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
 
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/bottom_navigation"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_gravity="bottom" />
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

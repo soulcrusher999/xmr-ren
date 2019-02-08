@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.iit.rentals.R;
 import com.iit.rentals.models.OthersRent;
-import com.iit.rentals.rents.RentDetailActivity;
 import com.iit.rentals.utils.UniversalImageLoader;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class OthersRecyclerAdapter extends RecyclerView.Adapter<OthersRecyclerAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MyViewHolder(LayoutInflater.from(
-                mContext).inflate(R.layout.snippet_layout_hotel, parent, false));
+                mContext).inflate(R.layout.snippet_layout_others_vert, parent, false));
     }
 
     @Override
@@ -60,8 +59,8 @@ public class OthersRecyclerAdapter extends RecyclerView.Adapter<OthersRecyclerAd
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        Intent intent = new Intent(mContext, RentDetailActivity.class);
-                        intent.putExtra(mContext.getString(R.string.calling_hotel_detail),
+                        Intent intent = new Intent(mContext, DetailActivity.class);
+                        intent.putExtra(mContext.getString(R.string.calling_others_detail),
                                 mList.get(getAdapterPosition()));
 
                         mContext.startActivity(intent);

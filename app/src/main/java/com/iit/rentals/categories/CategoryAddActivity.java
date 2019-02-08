@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,6 +17,7 @@ import com.iit.rentals.R;
 import com.iit.rentals.models.Category;
 import com.iit.rentals.utils.FilePaths;
 import com.iit.rentals.utils.FirebaseHelper;
+import com.iit.rentals.utils.UniversalImageLoader;
 
 public class CategoryAddActivity extends AppCompatActivity {
     private Context mContext = CategoryAddActivity.this;
@@ -31,6 +33,8 @@ public class CategoryAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
 
+        ImageView main_image = findViewById(R.id.main_image);
+        UniversalImageLoader.setImage(FilePaths.IMAGE_URI, main_image, null, "");
         firebaseHelper = new FirebaseHelper(mContext);
 
         setupToolbar();
