@@ -218,7 +218,6 @@ public class RentsActivity extends AppCompatActivity {
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
 
-
         // Set background color
         bottomNavigation.setDefaultBackgroundColor(ContextCompat.getColor(mContext, R.color.black));
         // Manage titles
@@ -234,7 +233,6 @@ public class RentsActivity extends AppCompatActivity {
 
         // Customize notification (title, background, typeface)
         bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
-
 
         // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {

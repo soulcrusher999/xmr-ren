@@ -49,6 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     );
 
 
+
+
     // CATEGORY table name
     private static final String TABLE_CATEGORY = "CATEGORY";
     // CATEGORY Table Columns names

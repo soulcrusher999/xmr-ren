@@ -9,7 +9,6 @@ public class BookNow implements Parcelable {
     public String hotelId;
     public String hotelName;
     public String hotelImage;
-
     public String ownerName;
     public String ownerContact;
     public String userName;

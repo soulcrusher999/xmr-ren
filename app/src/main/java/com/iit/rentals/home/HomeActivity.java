@@ -41,6 +41,7 @@ import com.iit.rentals.utils.Navigation;
 import com.iit.rentals.utils.SharedPreferenceHelper;
 import com.iit.rentals.utils.UniversalImageLoader;
 import com.iit.rentals.utils.UserTypes;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        initImageLoader();
         //set main image from universal image loader to load image properly
         ImageView main_image = findViewById(R.id.main_image);
         UniversalImageLoader.setImage(FilePaths.IMAGE_URI, main_image, null, "");
-
         mFirebaseHelper = new FirebaseHelper(mContext);
 
         checkAdmin();
@@ -94,6 +95,12 @@ public class HomeActivity extends AppCompatActivity {
         logout();
 
     }
+
+    private void initImageLoader() {
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
+    }
+
 
     private void logout() {
         findViewById(R.id.log_out).setOnClickListener(new View.OnClickListener() {
